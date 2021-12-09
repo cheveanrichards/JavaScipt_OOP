@@ -7,11 +7,11 @@ class Student {
 }
 
 class Bootcamp {
-    students = []
-    constructor(name,level,newstudent){
+
+    constructor(name,level,students=[]){
         this.name = name;
         this.level = level;
-        this.students.push(newstudent);
+        this.students = students;
     }
 
     registerStudent(studentToRegister){
