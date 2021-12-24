@@ -43,7 +43,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 're
                <div className='container'>
                     <div className='row'>
                         <RenderCampsite campsite={props.campsite}/>
-                        <RenderComments comments={props.campsite.comments}/>
+                        <RenderComments comment={props.comments}/>
                     </div>
                 </div> 
             );
