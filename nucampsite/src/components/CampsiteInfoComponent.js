@@ -19,12 +19,12 @@ import Button from 'reactstrap/lib/Button';
             </div>);
     }
 
-   function RenderComments({comment}) {
-        if(comment){
+   function RenderComments({comments, addComment, campsiteId}) {
+        if(comments){
         return (
         <div className='col-md-5 m-1'>
             <h4>Comments</h4>
-            {comment.map(e => {
+            {comments.map(e => {
                 return(
                     <div key={e.id}>
                         {e.text} <br/>
@@ -35,7 +35,7 @@ import Button from 'reactstrap/lib/Button';
                 );
             })}
              <div className='row ml-3'>
-              <CommentForm/>
+             <CommentForm campsiteId={campsiteId} addComment={addComment} />
                  <br/>
                  <hr/>
             </div>
@@ -48,8 +48,6 @@ import Button from 'reactstrap/lib/Button';
     const required = val => val && val.length;
     const maxLength = len => val => !val || (val.length <= len);
     const minLength = len => val => val && (val.length >= len);
-    const isNumber = val => !isNaN(+val);
-    const validEmail = val => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
     class CommentForm extends Component {
         
@@ -62,6 +60,9 @@ import Button from 'reactstrap/lib/Button';
                 author: "",
                 text: ''
             };
+            
+           
+
         }
 
         toggleModal=()=>{
@@ -70,9 +71,11 @@ import Button from 'reactstrap/lib/Button';
             });
         }
 
-        handleSubmit = (values) => {
-            console.log('Current state is: ' + JSON.stringify(values));
-            alert('Current state is: ' + JSON.stringify(values));
+        handleSubmit = values => {
+            this.toggleModal();
+            this.props.addComment(this.props.campsiteId, values.rating, values.author, values.text);
+            // console.log('Current state is: ' + JSON.stringify(values));
+            // alert('Current state is: ' + JSON.stringify(values));
             //event.preventDefault();
         }
 
@@ -161,7 +164,11 @@ import Button from 'reactstrap/lib/Button';
                     </div>
                     <div className='row'>
                         <RenderCampsite campsite={props.campsite}/>
-                        <RenderComments comment={props.comments}/>
+                        <RenderComments 
+                        comments={props.comments}
+                        addComment={props.addComment}
+                        campsiteId={props.campsite.id}
+                    />
                     </div>
                     
                 </div> 
