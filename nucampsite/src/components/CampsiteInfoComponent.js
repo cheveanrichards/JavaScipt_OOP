@@ -6,39 +6,52 @@ import { Loading } from './LoadingComponent';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import Button from 'reactstrap/lib/Button';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 
 
     function RenderCampsite({campsite}) {
         return (
-            <div className='col-md-5 m-1'>
+            <div className="col-md-5 m-1">
+            <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
                 <Card>
                     <CardImg top src={baseUrl + campsite.image} alt={campsite.name} />
-                     <CardBody>
-                         <CardText>{campsite.description}</CardText>
-                     </CardBody>
-                 </Card>
-            </div>);
+                    <CardBody>
+                        <CardText>{campsite.description}</CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
+        </div>);
         
     }
 
-   function RenderComments({comments, addComment, campsiteId}) {
+    function RenderComments({comments, postComment, campsiteId}) {
         if(comments){
         return (
         <div className='col-md-5 m-1'>
             <h4>Comments</h4>
-            {comments.map(e => {
-                return(
-                    <div key={e.id}>
-                        {e.text} <br/>
-                        {e.author} <br/>
-                        {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(e.date)))}
-                        <br/> <hr/>
-                    </div>
-                );
-            })}
+                <Stagger in>
+                    {
+                        comments.map(comment => {
+                            return (
+                                <Fade in key={comment.id}>
+                                    <div>
+                                        <p>
+                                            {comment.text}<br />
+                                            -- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
+                                        </p>
+                                    </div>
+                                </Fade>
+                            );
+                        })
+                    }
+                </Stagger>
              <div className='row ml-3'>
-             <CommentForm campsiteId={campsiteId} addComment={addComment} />
+             <CommentForm campsiteId={campsiteId} postComment={postComment} />
                  <br/>
                  <hr/>
             </div>
@@ -76,7 +89,7 @@ import { baseUrl } from '../shared/baseUrl';
 
         handleSubmit = values => {
             this.toggleModal();
-            this.props.addComment(this.props.campsiteId, values.rating, values.author, values.text);
+            this.props.postComment(this.props.campsiteId, values.rating, values.author, values.text);
             // console.log('Current state is: ' + JSON.stringify(values));
             // alert('Current state is: ' + JSON.stringify(values));
             //event.preventDefault();
@@ -187,11 +200,11 @@ import { baseUrl } from '../shared/baseUrl';
                     </div>
                     <div className='row'>
                         <RenderCampsite campsite={props.campsite}/>
-                        <RenderComments 
+                        <RenderComments
                         comments={props.comments}
-                        addComment={props.addComment}
+                        postComment={props.postComment}
                         campsiteId={props.campsite.id}
-                    />
+                    />     
                     </div>
                     
                 </div> 
