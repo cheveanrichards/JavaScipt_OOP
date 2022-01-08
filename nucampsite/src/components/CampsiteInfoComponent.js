@@ -22,7 +22,7 @@ import { baseUrl } from '../shared/baseUrl';
         
     }
 
-   function RenderComments({comments, addComment, campsiteId}) {
+    function RenderComments({comments, postComment, campsiteId}) {
         if(comments){
         return (
         <div className='col-md-5 m-1'>
@@ -38,7 +38,7 @@ import { baseUrl } from '../shared/baseUrl';
                 );
             })}
              <div className='row ml-3'>
-             <CommentForm campsiteId={campsiteId} addComment={addComment} />
+             <CommentForm campsiteId={campsiteId} postComment={postComment} />
                  <br/>
                  <hr/>
             </div>
@@ -76,7 +76,7 @@ import { baseUrl } from '../shared/baseUrl';
 
         handleSubmit = values => {
             this.toggleModal();
-            this.props.addComment(this.props.campsiteId, values.rating, values.author, values.text);
+            this.props.postComment(this.props.campsiteId, values.rating, values.author, values.text);
             // console.log('Current state is: ' + JSON.stringify(values));
             // alert('Current state is: ' + JSON.stringify(values));
             //event.preventDefault();
@@ -187,11 +187,11 @@ import { baseUrl } from '../shared/baseUrl';
                     </div>
                     <div className='row'>
                         <RenderCampsite campsite={props.campsite}/>
-                        <RenderComments 
+                        <RenderComments
                         comments={props.comments}
-                        addComment={props.addComment}
+                        postComment={props.postComment}
                         campsiteId={props.campsite.id}
-                    />
+                    />     
                     </div>
                     
                 </div> 
