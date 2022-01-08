@@ -8,14 +8,14 @@ class Student {
 
 class Bootcamp {
 
-    constructor(name,level,students=[]){
+    constructor(name,level,student=[]){
         this.name = name;
         this.level = level;
-        this.students = students;
+        this.students = student;
     }
 
     registerStudent(studentToRegister){
-        if (((this.students.map(s=>s.email)).includes(studentToRegister.email)) === true){
+        if (((this.students.map(eachstudent=>eachstudent.name).includes(studentToRegister.email)) === true)){
             console.log(`This ${studentToRegister.email} is already in our system You already registered`);
         }else{
             this.students.push(studentToRegister);
@@ -24,3 +24,6 @@ class Bootcamp {
         return this.students;
     }
 }
+
+
+ 
