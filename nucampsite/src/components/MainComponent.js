@@ -12,7 +12,11 @@ import { COMMENTS } from '../shared/comments';
 import { PARTNERS } from '../shared/partners';
 import { PROMOTIONS } from '../shared/promotions';
 import CampsiteInfo from './CampsiteInfoComponent';
+<<<<<<< HEAD
 import { postComment, fetchCampsites, fetchComments, fetchPromotions, fetchPartners,postFeedback } from '../redux/ActionCreator';
+=======
+import { postComment, fetchCampsites, fetchComments, fetchPromotions } from '../redux/ActionCreator';
+>>>>>>> 702e939b8cb41476bb55041218ba9b34bce275a7
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -32,9 +36,13 @@ const mapDispatchToProps = {
     resetFeedbackForm: () => (actions.reset('feedbackForm')),
     fetchComments: () => (fetchComments()),
     fetchPromotions: () => (fetchPromotions()),
+<<<<<<< HEAD
     fetchPartners: () => (fetchPartners()),
     postComment: (campsiteId, rating, author, text) => (postComment(campsiteId, rating, author, text)),
     postFeedback: (firstName, lastName, phoneNum, email, agree, contactType,feedback) => (postFeedback(firstName, lastName, phoneNum, email, agree, contactType,feedback))
+=======
+    postComment: (campsiteId, rating, author, text) => (postComment(campsiteId, rating, author, text)),
+>>>>>>> 702e939b8cb41476bb55041218ba9b34bce275a7
 };
 
 class Main extends Component {
