@@ -3,6 +3,7 @@ import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'r
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
+import { FadeTransform,Fade,Stagger } from 'react-animation-components';
 
 
 const RenderPartner = ({partner}) => {
@@ -18,9 +19,15 @@ const RenderPartner = ({partner}) => {
 function PartnersList (props){
     const partners = props.partners.partners.map(partner => {
         return (
-            <Media tag="li" key={partner.id}>
+            <FadeTransform key={partner.id}
+            in
+            transformProps={{
+                exitTransform: 'scale(0.5) translateY(50%)'
+            }}>
+            <Media tag="li" >
                 <RenderPartner partner={partner}/>
             </Media>
+            </FadeTransform>
         );
     });
     if (props.partners.isLoading) {
@@ -37,7 +44,7 @@ function PartnersList (props){
             <div className="container">
                 <div className="row">
                     <div className="col">
-                        <h4>{props.campsites.errMess}</h4>
+                        <h4>{props.partners.errMess}</h4>
                     </div>
                 </div>
             </div>
@@ -47,7 +54,9 @@ function PartnersList (props){
     return(
         <div className='col mt-4'>
             <Media list>
-                        {partners}
+                <Stagger in>
+                    {partners}
+                </Stagger>
             </Media>
         </div>
     )
